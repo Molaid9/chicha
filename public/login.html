@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="BuyAHome.svg" type="image/x-icon">
+    <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-auth-compat.js"></script>
+    <title>SignatureBy_MO: Real Estate Listings, Homes for Sale, Housing data</title>
+    <style>
+        .container {
+            background-image: url(extraLarge.jpg);
+            background-size: cover;
+            height: 500px;
+            width: 96%;
+            margin-left: 20px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sign-div {
+            background-color: white;
+            height: 400px;
+            width: 30%;
+            margin: auto;
+            padding-top: 10px;
+            text-align: center;
+            margin-top: 60px;
+            border-radius: 20px;
+
+
+        }
+
+        .ex {
+
+            text-align: center;
+            color: rgb(75, 73, 73);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background-color: white;
+        }
+
+        .inp {
+            height: 39px;
+            width: 330px;
+            background-color: white;
+            font-size: 16px;
+            border: 1px solid blue;
+            border-radius: 10px;
+        }
+
+        .but {
+            height: 39px;
+            width: 330px;
+            background-color: aquamarine;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+        }
+
+        .mo {
+            display: flex;
+            text-align: center;
+            align-items: center;
+            gap: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="header">
+        <div class="mo">
+            <h1 style="color: rgb(83, 16, 16); margin-left: 50px;">SignatureBy_MO</h1>
+            <p>Rent</p>
+            <p>Buy</p>
+            <p>Mortgage</p>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="sign-div">
+            <h2>Login Here</h2>
+            <p><input class="inp" id="email" type="email" placeholder="Enter email address"></p>
+            <p><input class="inp" id="password" type="password" placeholder="Password"></p>
+            <p><button class="but" onclick="Login()">Login</button></p>
+            <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+        </div>
+    </div>
+    <div class="ex">
+        <h1 style="font-size: 30px;">Explore homes on SignatureBy_MO</h1>
+        <p style="font-size: 18px;">
+            Take a deep dive and browse homes for sale, original neighborhood photos, resident <br>
+            reviews and local insights to find what is right for you.
+        </p>
+    </div>
+
+</body>
+
+</html>
+<script src="config.js"> </script>
+<script>
+    let email = document.getElementById("email")
+    let password = document.getElementById("password")
+    function Login() {
+        firebase.auth().signInWithEmailAndPassword(email.value, password.value)
+            .then((userCredential) => {
+                // Signed in
+                var user = userCredential.user;
+                alert("Login Successful")
+                window.location.href = "Homepage.html"
+            })
+            .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                alert("invalid Login")
+            });
+
+    }
+</script>

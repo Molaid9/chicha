@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-storage.js"></script>
+    <title>Document</title>
+</head>
+<style>
+ .prop{
+    background-color: rgb(240, 234, 234);
+    height: 600px;
+    width: 660px;
+    margin: auto;
+    justify-content: center;
+    align-self: center;
+    padding: 30px;
+    box-shadow: 20px;
+    /* box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75); */
+    /* text-align: center; */
+    
+ }
+ #property_addy{
+    width: 650px;
+    height: 50px;
+    box-shadow: 5px 5px 5px 10px rgba(56, 55, 55, 0.75);
+ }
+ #property_price{
+    width: 650px;
+    height: 50px;
+    box-shadow: 5px 5px 5px 10px rgba(56, 55, 55, 0.75);
+ }
+ #property_img{
+    width: 650px;
+    height: 50px;
+    box-shadow: 5px 5px 5px 10px rgba(56, 55, 55, 0.75);
+ }
+ #property_bath{
+    width: 650px;
+    height: 50px;
+    box-shadow: 5px 5px 5px 10px rgba(56, 55, 55, 0.75);
+ }
+ #property_desc{
+    width: 650px;
+    height: 50px;
+    box-shadow: 5px 5px 5px 10px rgba(56, 55, 55, 0.75);
+ }
+</style>
+<body>
+   <div class="prop">
+    <h1 style="font-size: 40px;">Add a Property</h1>
+    <div>
+        <p>Property address</p>
+        <!-- <input type="text" id="myInput" value=""> -->
+        <textarea id="property_addy"></textarea>
+    </div>
+    <div>
+        <p>Property Price</p>
+        <textarea id="property_price"></textarea>
+    </div>
+    <div>
+        <p>Property Images</p>
+        <input class="fil" id="property_img" type="file">
+        <button onclick="uploadImage()">Upload</button>
+    </div>
+    <div>
+        <p>Property bath/bed</p>
+        <textarea id="property_bath"></textarea>
+    </div>
+    <div>
+        <p>Property Description</p>
+        <textarea id="property_desc"></textarea>
+    </div>
+   </div>
+</body>
+</html>
+<script src="config.js"> </script>
+
+<script>
+     // Get a reference to the storage service
+  const storage = firebase.storage();
+
+function uploadImage() {
+  const fileInput = document.getElementById('fileInput');
+  const file = fileInput.files[0];
+
+  if (!file) {
+    alert("No file selected");
+    return;
+  }
+
+  // Create a storage ref
+  const storageRef = storage.ref('images/' + file.name);
+
+  // Upload the file
+  const uploadTask = storageRef.put(file);
+
+  // Listen for state changes, errors, and completion of the upload.
+  uploadTask.on('state_changed',
+    (snapshot) => {
+      // Observe state change events such as progress, pause, and resume
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('Upload is ' + progress + '% done');
+    },
+    (error) => {
+      // Handle unsuccessful uploads
+      console.error("Error uploading file:", error);
+    },
+    () => {
+      // Handle successful uploads on complete
+      uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+        console.log('File available at', downloadURL);
+      });
+    }
+  );
+  // Add a new document in collection "cities"
+db.collection("property").doc().set({
+    property_address: 
+})
+.then(() => {
+    console.log("Document successfully written!");
+})
+.catch((error) => {
+    console.error("Error writing document: ", error);
+});
+}
+</script>
